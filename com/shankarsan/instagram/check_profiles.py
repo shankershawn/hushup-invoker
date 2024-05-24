@@ -9,7 +9,9 @@ from selenium.webdriver.common.by import By
 from com.shankarsan.repository.oracle import Connection
 
 options = Options()
-options.add_argument("--headless=new")
+options.add_argument("--headless")
+options.add_argument('--no-sandbox')
+options.add_argument('--disable-dev-shm-usage')
 driver = webdriver.Chrome(options=options)
 driver.implicitly_wait(10)
 
@@ -53,7 +55,7 @@ def invoke_profiles():
     [invoke_profile(profile, driver) for profile in profiles]
 
 
-schedule.every(20).minutes.do(invoke_profiles)
+schedule.every(20).seconds.do(invoke_profiles)
 while 1:
     schedule.run_pending()
     time.sleep(1)
