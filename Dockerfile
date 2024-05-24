@@ -13,4 +13,5 @@ RUN dpkg -i google-chrome-stable_current_amd64.deb
 RUN git clone https://github.com/shankershawn/hushup-invoker
 WORKDIR hushup-invoker/
 RUN python3 -m venv .venv && source .venv/bin/activate && python3 -m pip install oracledb schedule selenium hvac
+CMD ["git", "pull", "origin", "main"]
 CMD [".venv/bin/python3", "-m", "com.shankarsan.instagram.check_profiles.py", "${PROFILES}", "${TOKEN}"]
