@@ -7,7 +7,7 @@ RUN apt-get update -y
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get install wget chromium-chromedriver python3 python3-venv pip git libffi-dev rustc -y
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-RUN dpkg -i google-chrome-stable_current_amd64.deb
+RUN dpkg -i google-chrome-stable_current_amd64.deb; exit 0
 RUN apt-get -f install -y
 RUN dpkg -i google-chrome-stable_current_amd64.deb
 RUN git clone https://github.com/shankershawn/hushup-invoker
