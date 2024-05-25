@@ -2,7 +2,9 @@ import sys
 import time
 
 import schedule
+from retry import retry
 from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
@@ -46,6 +48,7 @@ def persist_info(insta_driver):
     # print(f'{title} has {element.text} posts')
 
 
+@retry(NoSuchElementException, backoff=1.5, delay=1, tries=50)
 def invoke_profile(profile, insta_driver):
     insta_driver.get(profile)
     persist_info(insta_driver)
