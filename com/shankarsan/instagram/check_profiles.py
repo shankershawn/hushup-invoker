@@ -55,7 +55,7 @@ def invoke_profiles():
     [invoke_profile(profile, driver) for profile in profiles]
 
 
-schedule.every(20).seconds.do(invoke_profiles)
+schedule.every(20).minutes.do(invoke_profiles)
 while 1:
     schedule.run_pending()
     time.sleep(1)
