@@ -50,6 +50,7 @@ def persist_info(insta_driver):
 
 @retry(NoSuchElementException, backoff=1.5, delay=1, tries=50)
 def invoke_profile(profile, insta_driver):
+    print(f'invoke_profile for {profile}')
     insta_driver.get(profile)
     persist_info(insta_driver)
 
