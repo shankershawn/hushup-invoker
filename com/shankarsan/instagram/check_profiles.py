@@ -19,6 +19,7 @@ driver.implicitly_wait(10)
 
 profiles = sys.argv[1].split(',')
 token = sys.argv[2]
+interval_seconds = int(sys.argv[3])
 
 
 def persist_info(insta_driver):
@@ -48,7 +49,7 @@ def persist_info(insta_driver):
     # print(f'{title} has {element.text} posts')
 
 
-@retry(NoSuchElementException, backoff=1.5, delay=1, tries=50)
+@retry(NoSuchElementException, backoff=1.5, delay=1, tries=20)
 def invoke_profile(profile, insta_driver):
     print(f'invoke_profile for {profile}')
     insta_driver.get(profile)
@@ -59,7 +60,7 @@ def invoke_profiles():
     [invoke_profile(profile, driver) for profile in profiles]
 
 
-schedule.every(20).minutes.do(invoke_profiles)
+schedule.every(interval_seconds).seconds.do(invoke_profiles)
 while 1:
     schedule.run_pending()
     time.sleep(1)
