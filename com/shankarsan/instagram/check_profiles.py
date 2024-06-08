@@ -25,8 +25,8 @@ interval_seconds = int(sys.argv[3])
 def persist_info(insta_driver):
     title = insta_driver.title
     element = insta_driver.find_element(By.XPATH,
-                                        '/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[2]/'
-                                        + 'section/main/div/header/section/ul/li[1]/button/span/span')
+                                        '/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[2]'
+                                        '/section/main/div/header/section/div[3]/ul/li[1]/div/button/span/span')
     connection = Connection.get_connection_from_pool(token)
     cursor1 = connection.cursor()
     cursor1.execute(statement='MERGE INTO t_instagram_post_counts_f target USING'
@@ -49,7 +49,7 @@ def persist_info(insta_driver):
     # print(f'{title} has {element.text} posts')
 
 
-@retry(NoSuchElementException, backoff=1.5, delay=1, tries=20)
+@retry(NoSuchElementException, backoff=1.5, delay=1, tries=2)
 def invoke_profile(profile, insta_driver):
     print(f'invoke_profile for {profile}')
     insta_driver.get(profile)
